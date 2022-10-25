@@ -10,5 +10,6 @@ const userService = new UserService(usersRepository);
 const userController = new UserController(userService);
 
 usersRouter.post('/login', userController.makeLogin);
+usersRouter.get('/login/validate', userController.loginValidate);
 
 export default usersRouter;

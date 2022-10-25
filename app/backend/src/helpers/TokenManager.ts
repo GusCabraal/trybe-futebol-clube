@@ -3,10 +3,6 @@ import 'dotenv/config';
 
 const secret = process.env.JWT_SECRET || ('secret' as jwt.Secret);
 
-interface IPayload {
-  data: object | string | number | Buffer;
-}
-
 export default class TokenManager {
   static makeToken = (payload: unknown) => {
     const jwtConfig: jwt.SignOptions = {
@@ -20,7 +16,7 @@ export default class TokenManager {
 
   static decodeToken = async (token: string) => {
     try {
-      const { data } = jwt.verify(token, secret) as IPayload;
+      const { data } = jwt.verify(token, secret) as jwt.JwtPayload;
       return data;
     } catch (error) {
       return null;

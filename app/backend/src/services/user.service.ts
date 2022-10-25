@@ -8,6 +8,10 @@ interface IRequest {
   password: string;
 }
 
+interface IPayload {
+  data: object | string | number | Buffer;
+}
+
 export default class UserService {
   private _usersRepository: IUsersRepository;
 
@@ -26,5 +30,10 @@ export default class UserService {
 
     const token = TokenManager.makeToken(user);
     return token;
+  };
+
+  public loginValidate = async (token:string): Promise<IPayload | null> => {
+    const { role } = await TokenManager.decodeToken(token);
+    return role;
   };
 }
