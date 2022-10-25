@@ -11,6 +11,8 @@ class App {
 
     this.config();
 
+    this.routes();
+
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
   }
@@ -25,6 +27,9 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+  }
+
+  private routes(): void {
     this.app.use(usersRouter);
     this.app.use(handleErrors);
   }

@@ -1,6 +1,5 @@
 import * as jwt from 'jsonwebtoken';
 import 'dotenv/config';
-// import * as bcrypt from 'bcryptjs';
 
 const secret = process.env.JWT_SECRET || ('secret' as jwt.Secret);
 
