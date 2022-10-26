@@ -1,3 +1,4 @@
+import { NotFoundError } from '../errors';
 import ITeam from '../entities/ITeams';
 import ITeamsRepository from '../repositories/ITeams.repository';
 
@@ -15,6 +16,9 @@ export default class TeamService {
 
   public findById = async (id:number): Promise<ITeam | null> => {
     const team = await this._teamsRepository.findById(id);
+
+    if (!team) throw new NotFoundError('Team not found');
+
     return team;
   };
 }

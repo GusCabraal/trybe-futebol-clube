@@ -95,12 +95,12 @@ describe('Seu teste da rota de GET /teams/:id', () => {
     })
     after(() => sinon.restore())
 
-    it('Retorna status 200', async () => {
+    it('Retorna status 404', async () => {
       const httpResponse = await chai
       .request(app)
       .get('/teams/100')
 
-      expect(httpResponse.status).to.equal(200);
+      expect(httpResponse.status).to.equal(404);
     });
 
     it('Retorna o valor null', async () => {
@@ -108,7 +108,9 @@ describe('Seu teste da rota de GET /teams/:id', () => {
       .request(app)
       .get('/teams/100')
       
-      expect(httpResponse.body).to.equal(null);
+      expect(httpResponse.body).to.deep.equal({
+        message: "Team not found"
+      });
     });
   })
 });
