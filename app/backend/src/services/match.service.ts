@@ -8,8 +8,14 @@ export default class MatchService {
     this._matchesRepository = matchesRepository;
   }
 
-  public findAll = async (): Promise<IMatch[] | null> => {
-    const teams = await this._matchesRepository.findAll();
-    return teams;
+  public findAll = async (inProgress:string): Promise<IMatch[] | null> => {
+    let matches;
+    if (inProgress) {
+      const status = inProgress === 'true' ? 1 : 0;
+      matches = await this._matchesRepository.findByProgress(status);
+    } else {
+      matches = await this._matchesRepository.findAll();
+    }
+    return matches;
   };
 }
