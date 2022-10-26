@@ -17,7 +17,7 @@ module.exports = {
       },
       homeTeamGoals: {
         type: Sequelize.INTEGER,
-        field: 'home_team_goals'
+        field: 'home_team_goals',
       },
       awayTeam: {
         type: Sequelize.INTEGER,
@@ -29,11 +29,11 @@ module.exports = {
       },
       awayTeamGoals: {
         type: Sequelize.INTEGER,
-        field: 'away_team_goals'
+        field: 'away_team_goals',
       },
       inProgress: {
-        type: Sequelize.BOOLEAN,
-        field: 'in_progress'
+        type: Sequelize.INTEGER,
+        field: 'in_progress',
       },
     });
   },
