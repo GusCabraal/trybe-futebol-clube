@@ -43,26 +43,19 @@ Match.init({
     field: 'away_team_goals',
   },
   inProgress: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.BOOLEAN,
     field: 'in_progress',
   },
 }, {
   sequelize: db,
   tableName: 'matches',
   timestamps: false,
-  underscored: true,
 });
 
-/**
-  * `Workaround` para aplicar as associations em TS:
-  * Associations 1:N devem ficar em uma das instâncias de modelo
-  * */
+Match.belongsTo(Team, { foreignKey: 'home_team', as: 'teamHome' });
+Match.belongsTo(Team, { foreignKey: 'away_team', as: 'teamAway' });
 
-Match.belongsTo(Team, { foreignKey: 'homeTeam', as: 'homeTeam' });
-Match.belongsTo(Team, { foreignKey: 'awayTeam', as: 'awayTeam' });
-// OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
-
-Team.hasMany(Match, { foreignKey: 'homeTeam', as: 'teamA' });
-Team.hasMany(Match, { foreignKey: 'awayTeam', as: 'teamB' });
+Team.hasMany(Match, { foreignKey: 'home_team', as: 'homeTeamId' });
+Team.hasMany(Match, { foreignKey: 'away_team', as: 'awayTeamId' });
 
 export default Match;
