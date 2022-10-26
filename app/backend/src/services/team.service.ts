@@ -12,4 +12,9 @@ export default class TeamService {
     const teams = await this._teamsRepository.findAll();
     return teams;
   };
+
+  public findById = async (id:number): Promise<ITeam | null> => {
+    const team = await this._teamsRepository.findById(id);
+    return team;
+  };
 }

@@ -11,4 +11,10 @@ export default class SequelizeTeamsRepository implements ITeamsRepository {
     if (teams.length === 0) return null;
     return teams;
   };
+
+  public findById = async (id:number): Promise<ITeam | null> => {
+    const team = await this._model.findByPk(id);
+
+    return team;
+  };
 }

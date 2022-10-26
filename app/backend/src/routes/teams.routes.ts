@@ -9,5 +9,6 @@ const teamService = new TeamService(sequelizeTeamsRepository);
 const teamController = new TeamController(teamService);
 
 usersRouter.get('/', teamController.findAll);
+usersRouter.get('/:id', teamController.findById);
 
 export default usersRouter;
