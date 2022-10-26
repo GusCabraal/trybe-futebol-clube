@@ -1,7 +1,7 @@
 import * as express from 'express';
 import 'express-async-errors';
 import handleErrors from './middlewares/handleErrors';
-import usersRouter from './routes/users.routes';
+import { teamRoutes, userRoutes } from './routes';
 
 class App {
   public app: express.Express;
@@ -30,7 +30,8 @@ class App {
   }
 
   private routes(): void {
-    this.app.use(usersRouter);
+    this.app.use(userRoutes);
+    this.app.use('/teams', teamRoutes);
     this.app.use(handleErrors);
   }
 
