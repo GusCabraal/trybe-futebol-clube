@@ -4,11 +4,11 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
+// import Example from '../database/models/ExampleModel';
 
-import { Response } from 'superagent';
+// import { Response } from 'superagent';
 import { Model } from 'sequelize';
-import ITeam from '../entities/ITeams';
+// import ITeam from '../entities/ITeams';
 import { team, teams } from './mocks/teams.mock';
 import Team from '../database/models/Team';
 import * as bcrypt from 'bcryptjs';

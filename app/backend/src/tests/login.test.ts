@@ -4,11 +4,8 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
 
-import { Response } from 'superagent';
 import { Model } from 'sequelize';
-import { IUser } from '../entities/IUser';
 import user from './mocks/login.mock';
 import User from '../database/models/User';
 import * as bcrypt from 'bcryptjs';
@@ -19,7 +16,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste da rota de login', () => {
+describe('Teste da rota de login', () => {
   describe('quando o login não recebe email e senha', () => {
     it('Retorna status 400', async () => {
       const httpResponse = await chai.request(app).post('/login')
@@ -32,6 +29,12 @@ describe('Seu teste da rota de login', () => {
     });
   })
   describe('quando o login recebe email ou senha invalidos', () => {
+    before(() => {
+      sinon.stub(Model, 'findOne').resolves(null)
+      sinon.stub(bcrypt, 'compareSync').resolves(false);
+    })
+
+    after(() => sinon.restore())
     it('Retorna status 401', async () => {
       const httpResponse = await chai
       .request(app)
@@ -52,16 +55,16 @@ describe('Seu teste da rota de login', () => {
     before(() => {
       sinon.stub(Model, 'findOne').resolves(user as User)
       sinon.stub(bcrypt, 'compareSync').resolves(true);
-      sinon.stub(jwt, 'sign').resolves('token');
+      sinon.stub(jwt, 'sign').resolves('VALID_TOKEN');
     })
     after(() => sinon.restore())
 
-    it('Retorna status 401', async () => {
+    it('Retorna status 200', async () => {
       const httpResponse = await chai
       .request(app)
       .post('/login')
-      .send({ email: "admin@admin.com",
-      password: "secret_admin"})
+      .send({ email: "VALID_EMAIL@EMAIL.COM",
+      password: "VALID_PASSWORD"})
       expect(httpResponse.status).to.equal(200);
     });
 
@@ -69,8 +72,8 @@ describe('Seu teste da rota de login', () => {
       const httpResponse = await chai
       .request(app)
       .post('/login')
-      .send({email: 'emailInvalido', password: '12345'})
-      expect(httpResponse.body).to.deep.equal({token: 'token'});
+      .send({email: 'VALID_EMAIL@EMAIL.COM', password: 'VALID_PASSWORD'})
+      expect(httpResponse.body).to.deep.equal({token: 'VALID_TOKEN'});
     });
   })
 });
