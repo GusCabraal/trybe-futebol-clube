@@ -1,7 +1,12 @@
 import * as express from 'express';
 import 'express-async-errors';
 import handleErrors from './middlewares/handleErrors';
-import { teamRoutes, userRoutes, matchRoutes } from './routes';
+import {
+  leaderboardRoutes,
+  teamRoutes,
+  userRoutes,
+  matchRoutes,
+} from './routes';
 
 class App {
   public app: express.Express;
@@ -33,6 +38,7 @@ class App {
     this.app.use(userRoutes);
     this.app.use('/teams', teamRoutes);
     this.app.use('/matches', matchRoutes);
+    this.app.use('/leaderboard', leaderboardRoutes);
     this.app.use(handleErrors);
   }
 
@@ -43,5 +49,4 @@ class App {
 
 export { App };
 
-// A execução dos testes de cobertura depende dessa exportação
 export const { app } = new App();

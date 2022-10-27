@@ -40,6 +40,6 @@ export default class MatchController {
       awayTeamGoals,
     } as IUpdateMatchDTO;
     await this._matchService.updateMatchById(match);
-    return res.sendStatus(StatusCodes.OK);
+    return res.status(StatusCodes.OK).json({ message: 'ok' });
   };
 }
