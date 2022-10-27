@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { IUpdateMatchDTO } from '../entities/IMatches';
 
 import MatchService from '../services/match.service';
 
@@ -28,5 +29,17 @@ export default class MatchController {
     const { id } = req.params;
     await this._matchService.finishMatchById(Number(id));
     return res.status(StatusCodes.OK).json({ message: 'Finished' });
+  };
+
+  public updateMatchById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const match = {
+      id,
+      homeTeamGoals,
+      awayTeamGoals,
+    } as IUpdateMatchDTO;
+    await this._matchService.updateMatchById(match);
+    return res.sendStatus(StatusCodes.OK);
   };
 }

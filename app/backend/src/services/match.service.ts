@@ -1,5 +1,5 @@
 import { NotFoundError, UnprocessableError } from '../errors';
-import IMatch, { ICreateMatchDTO } from '../entities/IMatches';
+import IMatch, { ICreateMatchDTO, IUpdateMatchDTO } from '../entities/IMatches';
 import IMatchesRepository from '../repositories/IMatches.repository';
 import ITeamsRepository from '../repositories/ITeams.repository';
 
@@ -41,6 +41,10 @@ export default class MatchService {
     const newMatch = await this._matchesRepository.create(match);
 
     return newMatch;
+  };
+
+  public updateMatchById = async (match:IUpdateMatchDTO) => {
+    await this._matchesRepository.updateMatchById(match);
   };
 
   public finishMatchById = async (id:number): Promise<void> => {

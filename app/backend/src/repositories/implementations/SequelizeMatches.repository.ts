@@ -1,6 +1,6 @@
 import MatchModel from '../../database/models/Match';
 import TeamModel from '../../database/models/Team';
-import IMatches, { ICreateMatchDTO } from '../../entities/IMatches';
+import IMatches, { ICreateMatchDTO, IUpdateMatchDTO } from '../../entities/IMatches';
 import IMatchesRepository from '../IMatches.repository';
 
 export default class SequelizeMatchesRepository implements IMatchesRepository {
@@ -40,6 +40,14 @@ export default class SequelizeMatchesRepository implements IMatchesRepository {
 
   public finishMatchById = async (id:number): Promise<void> => {
     await this._model.update({ inProgress: false }, {
+      where: {
+        id,
+      },
+    });
+  };
+
+  public updateMatchById = async ({ id, homeTeamGoals, awayTeamGoals }: IUpdateMatchDTO) => {
+    await this._model.update({ homeTeamGoals, awayTeamGoals }, {
       where: {
         id,
       },

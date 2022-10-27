@@ -13,3 +13,8 @@ export interface ICreateMatchDTO {
   awayTeam: number;
   awayTeamGoals: number;
 }
+export interface IUpdateMatchDTO {
+  id: string;
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+}
