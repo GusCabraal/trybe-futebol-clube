@@ -23,4 +23,8 @@ export default class MatchService {
     const newMatch = await this._matchesRepository.create(match);
     return newMatch;
   };
+
+  public finishMatchById = async (id:number): Promise<void> => {
+    await this._matchesRepository.finishMatchById(id);
+  };
 }

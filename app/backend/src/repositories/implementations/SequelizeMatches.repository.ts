@@ -37,4 +37,12 @@ export default class SequelizeMatchesRepository implements IMatchesRepository {
     const matches = await this._model.create(match);
     return matches;
   };
+
+  public finishMatchById = async (id:number): Promise<void> => {
+    await this._model.update({ inProgress: false }, {
+      where: {
+        id,
+      },
+    });
+  };
 }

@@ -23,4 +23,10 @@ export default class MatchController {
     });
     return res.status(StatusCodes.CREATED).json(newMatch);
   };
+
+  public finishMatchById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    await this._matchService.finishMatchById(Number(id));
+    return res.status(StatusCodes.OK).json({ message: 'Finished' });
+  };
 }

@@ -12,5 +12,6 @@ const matchController = new MatchController(matchService);
 
 router.get('/', matchController.findAll);
 router.post('/', authenticate, matchController.create);
+router.patch('/:id/finish', authenticate, matchController.finishMatchById);
 
 export default router;
