@@ -15,4 +15,12 @@ export default class MatchController {
     const matches = await this._matchService.findAll(inProgress as string);
     return res.status(StatusCodes.OK).json(matches);
   };
+
+  public create = async (req: Request, res: Response) => {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
+    const newMatch = await this._matchService.create({
+      homeTeam, awayTeam, homeTeamGoals, awayTeamGoals,
+    });
+    return res.status(StatusCodes.CREATED).json(newMatch);
+  };
 }

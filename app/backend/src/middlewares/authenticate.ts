@@ -19,7 +19,7 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
       .json({ message: 'Expired or invalid token' });
   }
 
-  req.user = data;
+  // req.user = data;
 
   return next();
 };

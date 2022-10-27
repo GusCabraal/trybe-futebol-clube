@@ -1,6 +1,6 @@
 import MatchModel from '../../database/models/Match';
 import TeamModel from '../../database/models/Team';
-import IMatches from '../../entities/IMatches';
+import IMatches, { ICreateMatchDTO } from '../../entities/IMatches';
 import IMatchesRepository from '../IMatches.repository';
 
 export default class SequelizeMatchesRepository implements IMatchesRepository {
@@ -30,6 +30,11 @@ export default class SequelizeMatchesRepository implements IMatchesRepository {
     });
 
     if (matches.length === 0) return null;
+    return matches;
+  };
+
+  public create = async (match:ICreateMatchDTO): Promise<IMatches | null> => {
+    const matches = await this._model.create(match);
     return matches;
   };
 }

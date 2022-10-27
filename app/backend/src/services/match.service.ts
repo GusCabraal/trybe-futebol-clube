@@ -1,4 +1,4 @@
-import IMatch from '../entities/IMatches';
+import IMatch, { ICreateMatchDTO } from '../entities/IMatches';
 import IMatchesRepository from '../repositories/IMatches.repository';
 
 export default class MatchService {
@@ -17,5 +17,10 @@ export default class MatchService {
       matches = await this._matchesRepository.findAll();
     }
     return matches;
+  };
+
+  public create = async (match:ICreateMatchDTO): Promise<IMatch | null> => {
+    const newMatch = await this._matchesRepository.create(match);
+    return newMatch;
   };
 }

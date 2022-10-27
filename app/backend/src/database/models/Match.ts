@@ -45,6 +45,7 @@ Match.init({
   inProgress: {
     type: DataTypes.BOOLEAN,
     field: 'in_progress',
+    defaultValue: true,
   },
 }, {
   sequelize: db,
