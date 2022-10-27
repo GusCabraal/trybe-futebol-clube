@@ -1,11 +1,18 @@
+import { NotFoundError, UnprocessableError } from '../errors';
 import IMatch, { ICreateMatchDTO } from '../entities/IMatches';
 import IMatchesRepository from '../repositories/IMatches.repository';
+import ITeamsRepository from '../repositories/ITeams.repository';
 
 export default class MatchService {
   private _matchesRepository: IMatchesRepository;
+  private _teamsRepository: ITeamsRepository;
 
-  constructor(matchesRepository: IMatchesRepository) {
+  constructor(
+    matchesRepository: IMatchesRepository,
+    teamsRepository: ITeamsRepository,
+  ) {
     this._matchesRepository = matchesRepository;
+    this._teamsRepository = teamsRepository;
   }
 
   public findAll = async (inProgress:string): Promise<IMatch[] | null> => {
@@ -20,7 +27,19 @@ export default class MatchService {
   };
 
   public create = async (match:ICreateMatchDTO): Promise<IMatch | null> => {
+    if (match.homeTeam === match.awayTeam) {
+      throw new UnprocessableError('It is not possible to create a match with two equal teams');
+    }
+
+    const twoTeamsOfMatch = await this._teamsRepository.findTwoTeams(
+      match.homeTeam,
+      match.awayTeam,
+    );
+
+    if (twoTeamsOfMatch.length !== 2) throw new NotFoundError('There is no team with such id!');
+
     const newMatch = await this._matchesRepository.create(match);
+
     return newMatch;
   };
 

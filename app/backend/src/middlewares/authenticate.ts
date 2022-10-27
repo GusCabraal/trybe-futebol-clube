@@ -16,10 +16,8 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
   if (!data) {
     return res
       .status(StatusCodes.UNAUTHORIZED)
-      .json({ message: 'Expired or invalid token' });
+      .json({ message: 'Token must be a valid token' });
   }
-
-  // req.user = data;
 
   return next();
 };
