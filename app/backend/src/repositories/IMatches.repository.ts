@@ -6,4 +6,5 @@ export default interface IMatchesRepository {
   create(status:ICreateMatchDTO): Promise<IMatches | null>;
   finishMatchById(id:number): Promise<void>;
   updateMatchById(match: IUpdateMatchDTO): Promise<void>;
+
 }

@@ -1,13 +1,15 @@
 import { Router } from 'express';
-import SequelizeTeamsRepository from '../repositories/implementations/SequelizeTeams.repository';
-import TeamService from '../services/team.service';
-import TeamController from '../controller/team.controller';
+// import authenticate from '../middlewares/authenticate';
+import SequelizeLeaderboardRepository
+  from '../repositories/implementations/SequelizeLeaderboard.repository';
+import LeaderboardService from '../services/leaderboard.service';
+import LeaderboardController from '../controller/leaderboard.controller';
 
-const usersRouter = Router();
-const sequelizeTeamsRepository = new SequelizeTeamsRepository();
-const teamService = new TeamService(sequelizeTeamsRepository);
-const teamController = new TeamController(teamService);
+const router = Router();
+const sequelizeLeaderboardRepository = new SequelizeLeaderboardRepository();
+const leaderboardService = new LeaderboardService(sequelizeLeaderboardRepository);
+const leaderboardController = new LeaderboardController(leaderboardService);
 
-usersRouter.get('/', teamController.findAll);
+router.get('/home', leaderboardController.findAll);
 
-export default usersRouter;
+export default router;
