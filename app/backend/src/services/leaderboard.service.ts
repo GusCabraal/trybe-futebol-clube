@@ -10,8 +10,13 @@ export default class LeaderboardService {
     this._leaderboardRepository = leaderboardRepository;
   }
 
-  public findAll = async (): Promise<ILeaderboard[]> => {
+  public leaderboardHome = async (): Promise<ILeaderboard[]> => {
     const leaderboard = this._leaderboardRepository.leaderboardHome();
+    return leaderboard;
+  };
+
+  public leaderboardAway = async (): Promise<ILeaderboard[]> => {
+    const leaderboard = this._leaderboardRepository.leaderboardAway();
     return leaderboard;
   };
 }

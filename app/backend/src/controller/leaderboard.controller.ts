@@ -10,8 +10,13 @@ export default class LeaderboardController {
     this._leaderboardService = leaderboardService;
   }
 
-  public findAll = async (_req: Request, res: Response) => {
-    const leaderboard = await this._leaderboardService.findAll();
+  public leaderboardHome = async (_req: Request, res: Response) => {
+    const leaderboard = await this._leaderboardService.leaderboardHome();
+    return res.status(StatusCodes.OK).json(leaderboard);
+  };
+
+  public leaderboardAway = async (_req: Request, res: Response) => {
+    const leaderboard = await this._leaderboardService.leaderboardAway();
     return res.status(StatusCodes.OK).json(leaderboard);
   };
 }
