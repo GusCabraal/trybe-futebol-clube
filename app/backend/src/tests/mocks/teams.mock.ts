@@ -18,4 +18,14 @@ const team = {
   teamName: "Bahia",
 };
 
-export { teams, team };
+const twoTeamsArray = [
+  {
+    id: 1,
+    teamName: "Avaí/Kindermann",
+  },
+  {
+    id: 2,
+    teamName: "Bahia",
+  }]
+
+export { teams, team, twoTeamsArray};

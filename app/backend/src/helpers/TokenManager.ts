@@ -16,7 +16,7 @@ export default class TokenManager {
 
   static decodeToken = async (token: string) => {
     try {
-      const { data } = jwt.verify(token, secret) as jwt.JwtPayload;
+      const { data } = await jwt.verify(token, secret) as jwt.JwtPayload;
       return data;
     } catch (error) {
       return null;

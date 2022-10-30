@@ -6,7 +6,7 @@ import IMatchesRepository from '../IMatches.repository';
 export default class SequelizeMatchesRepository implements IMatchesRepository {
   private _model = MatchModel;
 
-  public findAll = async (): Promise<IMatches[] | null> => {
+  public findAll = async (): Promise<IMatches[]> => {
     const matches = await this._model.findAll({
       include: [
         { model: TeamModel, as: 'teamHome', attributes: { exclude: ['id'] } },
@@ -15,11 +15,10 @@ export default class SequelizeMatchesRepository implements IMatchesRepository {
       attributes: { exclude: ['home_team', 'away_team'] },
     });
 
-    if (matches.length === 0) return null;
     return matches;
   };
 
-  public findByProgress = async (status:number): Promise<IMatches[] | null> => {
+  public findByProgress = async (status:boolean): Promise<IMatches[]> => {
     const matches = await this._model.findAll({
       include: [
         { model: TeamModel, as: 'teamHome', attributes: { exclude: ['id'] } },
@@ -28,8 +27,6 @@ export default class SequelizeMatchesRepository implements IMatchesRepository {
       attributes: { exclude: ['home_team', 'away_team'] },
       where: { inProgress: status },
     });
-
-    if (matches.length === 0) return null;
     return matches;
   };
 

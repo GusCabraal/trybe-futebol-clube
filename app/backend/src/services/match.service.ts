@@ -18,7 +18,7 @@ export default class MatchService {
   public findAll = async (inProgress:string): Promise<IMatch[] | null> => {
     let matches;
     if (inProgress) {
-      const status = inProgress === 'true' ? 1 : 0;
+      const status = inProgress === 'true';
       matches = await this._matchesRepository.findByProgress(status);
     } else {
       matches = await this._matchesRepository.findAll();
