@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import UsersRepository from '../repositories/implementations/SequelizeUsers.repository';
 import UserService from '../services/user.service';
-// import authenticate from '../middlewares/authenticate';
 import UserController from '../controller/user.controller';
 
 const usersRouter = Router();

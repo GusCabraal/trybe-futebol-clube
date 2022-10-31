@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Teste da rota de login', () => {
+describe('Teste da rota de POST /login', () => {
   describe('quando o login não recebe email e senha', () => {
     it('Retorna status 400', async () => {
       const httpResponse = await chai.request(app).post('/login')
@@ -28,10 +28,10 @@ describe('Teste da rota de login', () => {
       expect(httpResponse.body).to.deep.equal({message: "All fields must be filled"});
     });
   })
-  describe('quando o login recebe email ou senha invalidos', () => {
+  describe('quando o login recebe um email invalido', () => {
     before(() => {
       sinon.stub(Model, 'findOne').resolves(null)
-      sinon.stub(bcrypt, 'compareSync').resolves(false);
+      // sinon.stub(bcrypt, 'compareSync').resolves(false);
     })
 
     after(() => sinon.restore())
@@ -48,6 +48,22 @@ describe('Teste da rota de login', () => {
       .request(app)
       .post('/login')
       .send({email: 'emailInvalido', password: '12345'})
+      expect(httpResponse.body).to.deep.equal({message: "Incorrect email or password"});
+    });
+  })
+  describe('quando o login recebe uma senha invalida', () => {
+    before(() => {
+      sinon.stub(Model, 'findOne').resolves(user as User)
+      sinon.stub(bcrypt, 'compareSync').resolves(false);
+    })
+
+    after(() => sinon.restore())
+
+    it('Retorna uma mensagem de erro', async () => {
+      const httpResponse = await chai
+      .request(app)
+      .post('/login')
+      .send({email: 'emailValido@email.com', password: 'INVALID_PASSWORD'})
       expect(httpResponse.body).to.deep.equal({message: "Incorrect email or password"});
     });
   })
@@ -77,3 +93,30 @@ describe('Teste da rota de login', () => {
     });
   })
 });
+
+describe('Teste da rota de GET /login/validate', () => {
+  describe('quando o tem sucesso', () => {
+    
+    before(() => {
+      sinon.stub(jwt, 'verify').resolves({data: {role:'admin'}});
+    });
+    
+    after(() => sinon.restore());
+
+    it('Retorna status 200', async () => {
+      const httpResponse = await chai.request(app)
+      .get('/login/validate')
+      .set('Authorization', "VALID_TOKEN")
+
+      expect(httpResponse.status).to.equal(200);
+    });
+
+    it('Retorna uma mensagem com a role do usuario logado', async () => {
+      const httpResponse = await chai.request(app)
+      .get('/login/validate')
+      .set('Authorization', "VALID_TOKEN")
+
+      expect(httpResponse.body).to.deep.equal({role: "admin"});
+    });
+  })
+  })

@@ -16,7 +16,7 @@ export default class UserService {
 
     if (!user) throw new UnauthorizedError('Incorrect email or password');
 
-    const verified = bcrypt.compareSync(password, user.password);
+    const verified = await bcrypt.compareSync(password, user.password);
 
     if (!verified) throw new UnauthorizedError('Incorrect email or password');
 

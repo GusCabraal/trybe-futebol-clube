@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
-const secret = process.env.JWT_SECRET || ('secret' as jwt.Secret);
+const secret = process.env.JWT_SECRET as jwt.Secret;
 
 export default class TokenManager {
   static makeToken = (payload: unknown) => {
