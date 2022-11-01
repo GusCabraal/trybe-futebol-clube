@@ -76,4 +76,46 @@ const leaderboardAway = [
   },
 ];
 
-export { leaderboardHome, leaderboardAway };
+const leaderboardTotal = [
+	{
+		name: "Palmeiras",
+		totalGames: 5,
+		totalVictories: 4,
+		totalDraws: 1,
+		totalLosses: 0,
+		goalsFavor: 17,
+		goalsOwn: 5,
+		totalPoints: 13,
+		goalsBalance: 12,
+		efficiency: 86.67
+	},
+	{
+		name: "Corinthians",
+		totalGames: 5,
+		totalVictories: 4,
+		totalDraws: 0,
+		totalLosses: 1,
+		goalsFavor: 12,
+		goalsOwn: 3,
+		totalPoints: 12,
+		goalsBalance: 9,
+		efficiency: 80.00
+	},
+	{
+		name: "Santos",
+		totalGames: 5,
+		totalVictories: 3,
+		totalDraws: 2,
+		totalLosses: 0,
+		goalsFavor: 12,
+		goalsOwn: 6,
+		totalPoints: 11,
+		goalsBalance: 6,
+		efficiency: 73.33
+	}]
+
+export {
+  leaderboardHome,
+  leaderboardAway,
+  leaderboardTotal,
+};

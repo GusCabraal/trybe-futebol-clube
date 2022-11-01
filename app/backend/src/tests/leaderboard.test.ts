@@ -9,7 +9,7 @@ import { app } from '../app';
 // import { Response } from 'superagent';
 import { Model } from 'sequelize';
 // import ITeam from '../entities/ITeams';
-import { leaderboardAway, leaderboardHome } from './mocks/leaderboard.mock';
+import { leaderboardAway, leaderboardHome, leaderboardTotal } from './mocks/leaderboard.mock';
 import modelSequelize from '../database/models';
 
 
@@ -63,6 +63,31 @@ describe('Seu teste da rota de GET /leaderboard/home', () => {
       .get('/leaderboard/home')
       
       expect(httpResponse.body).to.deep.equal(leaderboardHome);
+    });
+  })
+});
+
+describe('Seu teste da rota de GET /leaderboard', () => {
+  describe('quando tem sucesso', () => {
+    before(() => {
+      sinon.stub(modelSequelize, 'query').resolves([leaderboardTotal, null]);
+    })
+    after(() => sinon.restore())
+
+    it('Retorna status 200', async () => {
+      const httpResponse = await chai
+      .request(app)
+      .get('/leaderboard')
+
+      expect(httpResponse.status).to.equal(200);
+    });
+
+    it('Retorna uma tabela de classificação', async () => {
+      const httpResponse = await chai
+      .request(app)
+      .get('/leaderboard')
+      
+      expect(httpResponse.body).to.deep.equal(leaderboardTotal);
     });
   })
 });
