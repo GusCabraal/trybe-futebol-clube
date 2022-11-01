@@ -19,4 +19,9 @@ export default class LeaderboardService {
     const leaderboard = this._leaderboardRepository.leaderboardAway();
     return leaderboard;
   };
+
+  public leaderboardTotal = async (): Promise<ILeaderboard[]> => {
+    const leaderboard = this._leaderboardRepository.leaderboardTotal();
+    return leaderboard;
+  };
 }

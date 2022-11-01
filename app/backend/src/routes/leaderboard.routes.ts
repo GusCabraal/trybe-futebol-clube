@@ -9,6 +9,7 @@ const sequelizeLeaderboardRepository = new SequelizeLeaderboardRepository();
 const leaderboardService = new LeaderboardService(sequelizeLeaderboardRepository);
 const leaderboardController = new LeaderboardController(leaderboardService);
 
+router.get('/', leaderboardController.leaderboardTotal);
 router.get('/home', leaderboardController.leaderboardHome);
 router.get('/away', leaderboardController.leaderboardAway);
 
