@@ -10,10 +10,8 @@ import { Model } from "sequelize";
 import { finishedMatches, inProgressMatches, match, matches, newMatch } from "./mocks/matches.mock";
 import { twoTeamsArray } from './mocks/teams.mock';
 import Match from "../database/models/Match";
-import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import Team from "../database/models/Team";
-import SequelizeMatchesRepository from "../repositories/implementations/SequelizeMatches.repository";
 
 class IMatch extends Match {
   teamHome: {

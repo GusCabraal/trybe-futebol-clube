@@ -1,5 +1,4 @@
 import { Router } from 'express';
-// import authenticate from '../middlewares/authenticate';
 import SequelizeLeaderboardRepository
   from '../repositories/implementations/SequelizeLeaderboard.repository';
 import LeaderboardService from '../services/leaderboard.service';
