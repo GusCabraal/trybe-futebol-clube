@@ -5,13 +5,13 @@ import chaiHttp = require("chai-http");
 
 import { app } from "../app";
 
-import { Response } from "superagent";
 import { Model } from "sequelize";
-import { finishedMatches, inProgressMatches, match, matches, newMatch } from "./mocks/matches.mock";
+import { finishedMatches, inProgressMatches, matches, newMatch } from "./mocks/matches.mock";
 import { twoTeamsArray } from './mocks/teams.mock';
 import Match from "../database/models/Match";
 import * as jwt from "jsonwebtoken";
 import Team from "../database/models/Team";
+import { INVALID_TOKEN, JWT_VALID_VERIFY, VALID_TOKEN } from "./mocks/utils.mock";
 
 class IMatch extends Match {
   teamHome: {
@@ -28,10 +28,10 @@ const { expect } = chai;
 
 describe("Seu teste da rota de GET /matches", () => {
   describe("quando tem sucesso", () => {
-    before(() => {
+    beforeEach(() => {
       sinon.stub(Model, "findAll").resolves(matches as IMatch[]);
     });
-    after(() => sinon.restore());
+    afterEach(() => sinon.restore());
 
     it("Retorna status 200", async () => {
       const httpResponse = await chai.request(app).get("/matches");
@@ -45,11 +45,11 @@ describe("Seu teste da rota de GET /matches", () => {
       expect(httpResponse.body).to.deep.equal(matches);
     });
   });
+
   describe("quando busca apenas as partidas em progresso", () => {
-    before(() => {
-      sinon.stub(Model, "findAll").resolves(inProgressMatches as IMatch[]);
-    });
-    after(() => sinon.restore());
+
+    beforeEach(() => sinon.stub(Model, "findAll").resolves(inProgressMatches as IMatch[]));
+    afterEach(() => sinon.restore());
 
     it("Retorna uma lista de partidas", async () => {
       const httpResponse = await chai.request(app).get("/matches?inProgress=true");
@@ -57,11 +57,11 @@ describe("Seu teste da rota de GET /matches", () => {
       expect(httpResponse.body).to.deep.equal(inProgressMatches);
     });
   });
+
   describe("quando busca apenas as partidas finalizadas", () => {
-    before(() => {
-      sinon.stub(Model, "findAll").resolves(finishedMatches as IMatch[]);
-    });
-    after(() => sinon.restore());
+
+    beforeEach(() => sinon.stub(Model, "findAll").resolves(finishedMatches as IMatch[]));
+    afterEach(() => sinon.restore());
 
     it("Retorna uma lista de partidas", async () => {
       const httpResponse = await chai.request(app).get("/matches?inProgress=false");
@@ -72,6 +72,7 @@ describe("Seu teste da rota de GET /matches", () => {
 });
 
 describe("Teste da rota de POST /matches", () => {
+
   describe("quando não passa um token", () => {
     it("Retorna status 401", async () => {
       const httpResponse = await chai.request(app).post("/matches")
@@ -85,35 +86,35 @@ describe("Teste da rota de POST /matches", () => {
       expect(httpResponse.body).to.deep.equal({ message: 'Token not found' });
     });
   });
+
   describe("quando passa um token invalido", () => {
-    before(() => {
-      sinon.stub(jwt, 'verify').resolves(null);
-    });
-    after(() => sinon.restore());
+
+    beforeEach(() => sinon.stub(jwt, 'verify').resolves(null));
+    afterEach(() => sinon.restore());
 
     it("Retorna status 401", async () => {
       const httpResponse = await chai.request(app).post("/matches")
-        .set('Authorization', "INVALID_TOKEN")
+        .set('Authorization', INVALID_TOKEN)
 
       expect(httpResponse.status).to.equal(401);
     });
 
     it("Retorna uma mensagem de token invalido", async () => {
       const httpResponse = await chai.request(app).post("/matches")
-      .set('Authorization', "INVALID_TOKEN")
+      .set('Authorization', INVALID_TOKEN)
 
       expect(httpResponse.body).to.deep.equal({ message: 'Token must be a valid token' });
     });
   });
+
   describe("quando passa dois times iguais", () => {
-    before(() => {
-      sinon.stub(jwt, 'verify').resolves({data: '12345'});
-    });
-    after(() => sinon.restore());
+
+    beforeEach(() => sinon.stub(jwt, 'verify').resolves(JWT_VALID_VERIFY));
+    afterEach(() => sinon.restore());
 
     it("Retorna status 422", async () => {
       const httpResponse = await chai.request(app).post("/matches")
-        .set('Authorization', "VALID_TOKEN")
+        .set('Authorization', VALID_TOKEN)
         .send({
           homeTeam: 1,
           awayTeam: 1,
@@ -126,7 +127,7 @@ describe("Teste da rota de POST /matches", () => {
 
     it("Retorna uma mensagem de erro", async () => {
       const httpResponse = await chai.request(app).post("/matches")
-      .set('Authorization', "VALID_TOKEN")
+      .set('Authorization', VALID_TOKEN)
       .send({
         homeTeam: 1,
         awayTeam: 1,
@@ -137,16 +138,17 @@ describe("Teste da rota de POST /matches", () => {
       expect(httpResponse.body).to.deep.equal({ message: 'It is not possible to create a match with two equal teams' });
     });
   });
+
   describe("quando passa um time com id invalido", () => {
     beforeEach(() => {
-      sinon.stub(jwt, 'verify').resolves({data: '12345'});
+      sinon.stub(jwt, 'verify').resolves(JWT_VALID_VERIFY);
       sinon.stub(Model, "findAll").resolves([]);
     });
     afterEach(() => sinon.restore());
 
     it("Retorna status 404", async () => {
       const httpResponse = await chai.request(app).post("/matches")
-        .set('Authorization', "VALID_TOKEN")
+        .set('Authorization', VALID_TOKEN)
         .send({
           homeTeam: 1000,
           awayTeam: 2,
@@ -159,7 +161,7 @@ describe("Teste da rota de POST /matches", () => {
 
     it("Retorna uma mensagem de erro", async () => {
       const httpResponse = await chai.request(app).post("/matches")
-      .set('Authorization', "VALID_TOKEN")
+      .set('Authorization', VALID_TOKEN)
       .send({
         homeTeam: 1000,
         awayTeam: 2,
@@ -171,16 +173,17 @@ describe("Teste da rota de POST /matches", () => {
     });
   });
   describe("quando tem sucesso", () => {
-    before(() => {
-      sinon.stub(jwt, 'verify').resolves({data: '12345'});
+  
+    beforeEach(() => {
+      sinon.stub(jwt, 'verify').resolves(JWT_VALID_VERIFY);
       sinon.stub(Model, "findAll").resolves(twoTeamsArray as Team[]);
       sinon.stub(Model, "create").resolves(newMatch as IMatch);
     });
-    after(() => sinon.restore());
+    afterEach(() => sinon.restore());
 
     it("Retorna status 201", async () => {
       const httpResponse = await chai.request(app).post("/matches")
-        .set('Authorization', "VALID_TOKEN")
+        .set('Authorization', VALID_TOKEN)
         .send({
           homeTeam: 1,
           awayTeam: 2,
@@ -193,7 +196,7 @@ describe("Teste da rota de POST /matches", () => {
 
     it("Retorna a partida cadastrada", async () => {
       const httpResponse = await chai.request(app).post("/matches")
-      .set('Authorization', "VALID_TOKEN")
+      .set('Authorization', VALID_TOKEN)
       .send({
         homeTeam: 1,
         awayTeam: 2,
@@ -208,16 +211,16 @@ describe("Teste da rota de POST /matches", () => {
 
 describe("Seu teste da rota de PATCH /matches", () => {
   describe("finalizando uma partida em progresso", () => {
-    before(() => {
+    beforeEach(() => {
       sinon.stub(Model, "update").resolves(undefined);
-      sinon.stub(jwt, 'verify').resolves({data: '12345'});
+      sinon.stub(jwt, 'verify').resolves(JWT_VALID_VERIFY);
     });
-    after(() => sinon.restore());
+    afterEach(() => sinon.restore());
 
     it("Retorna status 200", async () => {
       const httpResponse = await chai.request(app)
       .patch("/matches/1/finish")
-      .set('Authorization', "VALID_TOKEN")
+      .set('Authorization', VALID_TOKEN)
 
       expect(httpResponse.status).to.equal(200);
     });
@@ -225,16 +228,15 @@ describe("Seu teste da rota de PATCH /matches", () => {
     it("Retorna uma mensagem de partida finalizada", async () => {
       const httpResponse = await chai.request(app)
       .patch("/matches/1/finish")
-      .set('Authorization', "VALID_TOKEN");
+      .set('Authorization', VALID_TOKEN);
 
       expect(httpResponse.body).to.deep.equal({ message: 'Finished' });
     });
   });
+
   describe("atualizando uma partida em progresso", () => {
-    before(() => {
-      sinon.stub(Model, "update").resolves(undefined);
-    });
-    after(() => sinon.restore());
+    beforeEach(() => sinon.stub(Model, "update").resolves(undefined));
+    afterEach(() => sinon.restore());
 
     it("Retorna status 200", async () => {
       const httpResponse = await chai.request(app)
@@ -254,6 +256,7 @@ describe("Seu teste da rota de PATCH /matches", () => {
         homeTeamGoals: 2,
         awayTeamGoals: 2,
       });
+      
       expect(httpResponse.body).to.deep.equal({ message: 'ok' });
     });
   });

@@ -9,7 +9,7 @@ export default class TeamService {
     this._teamsRepository = teamsRepository;
   }
 
-  public findAll = async (): Promise<ITeam[] | null> => {
+  public findAll = async (): Promise<ITeam[] | []> => {
     const teams = await this._teamsRepository.findAll();
     return teams;
   };

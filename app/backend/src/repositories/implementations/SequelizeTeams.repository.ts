@@ -6,10 +6,9 @@ import ITeamsRepository from '../ITeams.repository';
 export default class SequelizeTeamsRepository implements ITeamsRepository {
   private _model = TeamModel;
 
-  public findAll = async (): Promise<ITeam[] | null> => {
+  public findAll = async (): Promise<ITeam[] | []> => {
     const teams = await this._model.findAll();
 
-    if (teams.length === 0) return null;
     return teams;
   };
 

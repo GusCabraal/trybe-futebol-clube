@@ -10,11 +10,18 @@ import user from './mocks/login.mock';
 import User from '../database/models/User';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import { JWT_VALID_VERIFY, VALID_TOKEN } from './mocks/utils.mock';
 
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
+
+const VALID_EMAIL = 'valid@email.com';
+const INVALID_EMAIL = '12345';
+const VALID_PASSWORD = 'VALID_PASSWORD'
+const INVALID_PASSWORD = 'INVALID_PASSWORD'
+
 
 describe('Teste da rota de POST /login', () => {
   describe('quando o login não recebe email e senha', () => {
@@ -28,18 +35,18 @@ describe('Teste da rota de POST /login', () => {
       expect(httpResponse.body).to.deep.equal({message: "All fields must be filled"});
     });
   })
-  describe('quando o login recebe um email invalido', () => {
-    before(() => {
-      sinon.stub(Model, 'findOne').resolves(null)
-      // sinon.stub(bcrypt, 'compareSync').resolves(false);
-    })
 
-    after(() => sinon.restore())
+  describe('quando o login recebe um email invalido', () => {  
+
+    beforeEach(() => sinon.stub(Model, 'findOne').resolves(null))
+    afterEach(() => sinon.restore())
+
     it('Retorna status 401', async () => {
       const httpResponse = await chai
       .request(app)
       .post('/login')
-      .send({email: 'emailInvalido', password: '12345'})
+      .send({email: INVALID_EMAIL, password: VALID_PASSWORD})
+
       expect(httpResponse.status).to.equal(401);
     });
 
@@ -47,40 +54,46 @@ describe('Teste da rota de POST /login', () => {
       const httpResponse = await chai
       .request(app)
       .post('/login')
-      .send({email: 'emailInvalido', password: '12345'})
+      .send({email: INVALID_EMAIL, password: VALID_PASSWORD})
+
       expect(httpResponse.body).to.deep.equal({message: "Incorrect email or password"});
     });
   })
+
   describe('quando o login recebe uma senha invalida', () => {
-    before(() => {
+  
+    beforeEach(() => {
       sinon.stub(Model, 'findOne').resolves(user as User)
       sinon.stub(bcrypt, 'compareSync').resolves(false);
     })
-
-    after(() => sinon.restore())
+    afterEach(() => sinon.restore())
 
     it('Retorna uma mensagem de erro', async () => {
       const httpResponse = await chai
       .request(app)
       .post('/login')
-      .send({email: 'emailValido@email.com', password: 'INVALID_PASSWORD'})
+      .send({email: VALID_EMAIL, password: INVALID_PASSWORD})
+
       expect(httpResponse.body).to.deep.equal({message: "Incorrect email or password"});
     });
   })
+
   describe('quando o login é feito com sucesso', () => {
-    before(() => {
+
+    beforeEach(() => {
       sinon.stub(Model, 'findOne').resolves(user as User)
       sinon.stub(bcrypt, 'compareSync').resolves(true);
-      sinon.stub(jwt, 'sign').resolves('VALID_TOKEN');
+      sinon.stub(jwt, 'sign').resolves(VALID_TOKEN);
     })
-    after(() => sinon.restore())
+    afterEach(() => sinon.restore())
 
     it('Retorna status 200', async () => {
       const httpResponse = await chai
       .request(app)
       .post('/login')
-      .send({ email: "VALID_EMAIL@EMAIL.COM",
+      .send({ email: VALID_EMAIL,
       password: "VALID_PASSWORD"})
+
       expect(httpResponse.status).to.equal(200);
     });
 
@@ -88,25 +101,25 @@ describe('Teste da rota de POST /login', () => {
       const httpResponse = await chai
       .request(app)
       .post('/login')
-      .send({email: 'VALID_EMAIL@EMAIL.COM', password: 'VALID_PASSWORD'})
-      expect(httpResponse.body).to.deep.equal({token: 'VALID_TOKEN'});
+      .send({email: VALID_EMAIL, password: VALID_PASSWORD})
+
+      expect(httpResponse.body).to.deep.equal({token: VALID_TOKEN});
     });
   })
 });
 
 describe('Teste da rota de GET /login/validate', () => {
-  describe('quando o tem sucesso', () => {
-    
-    before(() => {
-      sinon.stub(jwt, 'verify').resolves({data: {role:'admin'}});
-    });
-    
-    after(() => sinon.restore());
+
+  describe('quando tem sucesso', () => {
+    beforeEach(() => {
+      sinon.stub(jwt, 'verify').resolves(JWT_VALID_VERIFY);
+    });  
+    afterEach(() => sinon.restore());
 
     it('Retorna status 200', async () => {
       const httpResponse = await chai.request(app)
       .get('/login/validate')
-      .set('Authorization', "VALID_TOKEN")
+      .set('Authorization', VALID_TOKEN)
 
       expect(httpResponse.status).to.equal(200);
     });
@@ -114,9 +127,9 @@ describe('Teste da rota de GET /login/validate', () => {
     it('Retorna uma mensagem com a role do usuario logado', async () => {
       const httpResponse = await chai.request(app)
       .get('/login/validate')
-      .set('Authorization', "VALID_TOKEN")
+      .set('Authorization', VALID_TOKEN)
 
-      expect(httpResponse.body).to.deep.equal({role: "admin"});
+      expect(httpResponse.body).to.deep.equal({ role: "admin" });
     });
   })
   })
