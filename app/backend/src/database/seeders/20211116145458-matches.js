@@ -12,7 +12,7 @@ module.exports = {
         },
         {
           home_team: 9,
-          home_team_goals: 1,
+          home_team_goals: 8,
           away_team: 14,
           away_team_goals: 1,
           in_progress: false,
@@ -70,7 +70,7 @@ module.exports = {
           home_team: 2,
           home_team_goals: 0,
           away_team: 9,
-          away_team_goals: 2,
+          away_team_goals: 9,
           in_progress: false,
         },
         {
@@ -140,7 +140,7 @@ module.exports = {
           home_team: 7,
           home_team_goals: 0,
           away_team: 9,
-          away_team_goals: 1,
+          away_team_goals: 9,
           in_progress: false,
         },
         {
@@ -201,7 +201,7 @@ module.exports = {
         },
         {
           home_team: 9,
-          home_team_goals: 0,
+          home_team_goals: 9,
           away_team: 4,
           away_team_goals: 4,
           in_progress: false,
@@ -236,7 +236,7 @@ module.exports = {
         },
         {
           home_team: 9,
-          home_team_goals: 3,
+          home_team_goals: 10,
           away_team: 6,
           away_team_goals: 1,
           in_progress: false,
@@ -287,7 +287,7 @@ module.exports = {
           home_team: 16,
           home_team_goals: 2,
           away_team: 9,
-          away_team_goals: 0,
+          away_team_goals: 7,
           in_progress: true,
         },
         {
