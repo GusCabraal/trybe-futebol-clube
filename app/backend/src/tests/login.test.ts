@@ -133,3 +133,30 @@ describe('Teste da rota de GET /login/validate', () => {
     });
   })
   })
+
+  describe('Teste do erro 500 na aplicação', () => {
+
+    beforeEach(() => {
+      sinon.stub(Model, 'findOne').rejects(user as User)
+    })
+    afterEach(() => sinon.restore())
+  
+    it('Retorna status 500', async () => {
+      const httpResponse = await chai
+      .request(app)
+      .post('/login')
+      .send({email: VALID_EMAIL, password: INVALID_PASSWORD})
+  
+      expect(httpResponse.status).to.equal(500);
+    });
+  
+    it('Retorna uma mensagem de erro', async () => {
+      const httpResponse = await chai
+      .request(app)
+      .post('/login')
+      .send({email: VALID_EMAIL, password: INVALID_PASSWORD})
+  
+      expect(httpResponse.body).to.deep.equal({message: "Internal server error"});
+    });
+  })
+  
