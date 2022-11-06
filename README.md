@@ -2,36 +2,45 @@
 
 Trybe Futebol Clube foi o 27° projeto realizado durante a formação da Trybe. Esse projeto pertence a seção 10 do Modulo de Back-end e foi desenvolvido em novembro de 2022.
 
-## O que foi desenvolvido
+> Status do projeto: Concluído :heavy_check_mark:
+
+## Descrição do projeto
+
 
 Um site informativo sobre partidas e classificações de futebol. O front-end estava pronto sendo necessario desenvolver apenas o back-end.
 
 
-## Como rodar a aplicação
+## Como rodar
 
 - Clone o repositório com `git@github.com:GusCabraal/trybe-futebol-clube.git`
 - Instale as dependencias `npm install`
-- Rode o script `npm run compose:up:dev`, esse script subirá o front-end na porta 3000, o back-end na porta 3001 e o banco de dados na porta 3002;
-- Acesse o front end no localmente no endereço `http://localhost:3000`;
-- Importe o arquivo `routes-project-trybe-futebol-clube.json` para dentro do Insominia
+- Rode o script `npm run compose:up:dev`, esse script subirá o front-end na porta `3000`, o back-end na porta `3001` e o banco de dados na porta `3002`;
+- Acesse o front end no localmente no endereço `http://localhost:3000`
+- Ou se preferir consumir apenas o back-end: Importe o arquivo `routes-project-trybe-futebol-clube.json` para dentro do Insominia
 - Consuma a API sem moderação.
 
-## Cobertura de testes
+
+## Testes
+Foram realizados testes de integração em todas as rotas da aplicação. Sendo atingido 100% de cobertura de testes em todas as rotas. Para rodar os testes entre no diretório de back-end `cd/app/backend`
 
 
-Foram realizados testes de integração em todas as rotas da aplicação. Sendo atingido 100% de cobertura de testes em todas as rotas. Para rodar os testes entre no diretório de back-end `cd/app/backend`.
-
-### Para rodar os testes
+<details>
+<summary><strong> Rodando os testes </strong></summary><br />
 - Execute o comando `npm test`
 
 ![cobertura_de_testes](testes.png)
 
-### Para rodar os testes de cobertura
+</details>
+
+<details>
+<summary><strong>Para rodar os testes de cobertura</strong></summary><br />
+
 - Execute a cobertura de testes `npm run test:coverage`
 
 ![cobertura_de_testes](cobertura-de-testes.png)
+</details>
 
-## Rotas da aplicação
+## Rotas
 
 ### Rotas de usuário
 
