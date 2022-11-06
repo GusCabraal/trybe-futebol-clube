@@ -14,8 +14,8 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste da rota de GET /teams', () => {
-  describe('quando tem sucesso', () => {
+describe('Teste da rota de GET /teams', () => {
+  describe('Quando tem sucesso', () => {
     beforeEach(() => {
       sinon.stub(Model, 'findAll').resolves(teams as Team[]);
     })
@@ -37,7 +37,7 @@ describe('Seu teste da rota de GET /teams', () => {
       expect(httpResponse.body).to.deep.equal(teams);
     });
   })
-  describe('quando o banco está vazio', () => {
+  describe('Quando o banco não está populado', () => {
     beforeEach(() => sinon.stub(Model, 'findAll').resolves([]));
     afterEach(() => sinon.restore())
 
@@ -59,8 +59,8 @@ describe('Seu teste da rota de GET /teams', () => {
   })
 });
 
-describe('Seu teste da rota de GET /teams/:id', () => {
-  describe('quando tem sucesso', () => {
+describe('Teste da rota de GET /teams/:id', () => {
+  describe('Quando tem sucesso', () => {
 
     beforeEach(() => sinon.stub(Model, 'findByPk').resolves(team as Team));
     afterEach(() => sinon.restore())
@@ -73,7 +73,7 @@ describe('Seu teste da rota de GET /teams/:id', () => {
       expect(httpResponse.status).to.equal(200);
     });
 
-    it('Retorna um unico time', async () => {
+    it('Retorna um único time', async () => {
       const httpResponse = await chai
       .request(app)
       .get('/teams/2')
@@ -82,7 +82,7 @@ describe('Seu teste da rota de GET /teams/:id', () => {
     });
   })
 
-  describe('quando não encontra o time no banco de dados', () => {
+  describe('Quando não encontra o time no banco de dados', () => {
     beforeEach(() => sinon.stub(Model, 'findByPk').resolves(null));
     afterEach(() => sinon.restore())
 

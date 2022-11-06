@@ -24,7 +24,7 @@ const INVALID_PASSWORD = 'INVALID_PASSWORD'
 
 
 describe('Teste da rota de POST /login', () => {
-  describe('quando o login não recebe email e senha', () => {
+  describe('Quando o login não recebe email e senha', () => {
     it('Retorna status 400', async () => {
       const httpResponse = await chai.request(app).post('/login')
       expect(httpResponse.status).to.equal(400);
@@ -35,7 +35,8 @@ describe('Teste da rota de POST /login', () => {
       expect(httpResponse.body).to.deep.equal({message: "All fields must be filled"});
     });
   })
-  describe('quando o login recebe um email invalido', () => {  
+
+  describe('Quando o login recebe um email invalido', () => {  
 
     beforeEach(() => sinon.stub(Model, 'findOne').resolves(null))
     afterEach(() => sinon.restore())
@@ -59,7 +60,7 @@ describe('Teste da rota de POST /login', () => {
     });
   })
 
-  describe('quando o login recebe uma senha invalida', () => {
+  describe('Quando o login recebe uma senha invalida', () => {
   
     beforeEach(() => {
       sinon.stub(Model, 'findOne').resolves(user as User)
@@ -77,7 +78,7 @@ describe('Teste da rota de POST /login', () => {
     });
   })
 
-  describe('quando o login é feito com sucesso', () => {
+  describe('Quando o login é feito com sucesso', () => {
 
     beforeEach(() => {
       sinon.stub(Model, 'findOne').resolves(user as User)
@@ -109,7 +110,7 @@ describe('Teste da rota de POST /login', () => {
 
 describe('Teste da rota de GET /login/validate', () => {
 
-  describe('quando tem sucesso', () => {
+  describe('Quando tem sucesso', () => {
     beforeEach(() => {
       sinon.stub(jwt, 'verify').resolves(JWT_VALID_VERIFY);
     });  

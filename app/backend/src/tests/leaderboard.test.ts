@@ -18,7 +18,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste da rota de GET /leaderboard', () => {
+describe('Teste da rota de GET /leaderboard', () => {
   describe('Quando acessa a rota GET /leaderboard com sucesso', () => {
     beforeEach(() => {
       sinon.stub(modelSequelize, 'query').resolves([leaderboardTotal, null]);

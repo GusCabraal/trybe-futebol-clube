@@ -16,6 +16,21 @@ Um site informativo sobre partidas e classificações de futebol. O front-end es
 - Importe o arquivo `routes-project-trybe-futebol-clube.json` para dentro do Insominia
 - Consuma a API sem moderação.
 
+## Cobertura de testes
+
+
+Foram realizados testes de integração em todas as rotas da aplicação. Sendo atingido 100% de cobertura de testes em todas as rotas. Para rodar os testes entre no diretório de back-end `cd/app/backend`.
+
+### Para rodar os testes
+- Execute o comando `npm test`
+
+![cobertura_de_testes](testes.png)
+
+### Para rodar os testes de cobertura
+- Execute a cobertura de testes `npm run test:coverage`
+
+![cobertura_de_testes](cobertura-de-testes.png)
+
 ## Rotas da aplicação
 
 ### Rotas de usuário
