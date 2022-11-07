@@ -2,7 +2,7 @@ import * as bcrypt from 'bcryptjs';
 import { ILoginDTO } from '../entities/IUser';
 import { UnauthorizedError } from '../errors';
 import TokenManager from '../helpers/TokenManager';
-import IUsersRepository from '../repositories/IUsers.repository';
+import IUsersRepository from '../repositories/interfaces/IUsers.repository';
 
 export default class UserService {
   private _usersRepository: IUsersRepository;

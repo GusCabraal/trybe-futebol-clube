@@ -1,7 +1,7 @@
 import MatchModel from '../../database/models/Match';
 import TeamModel from '../../database/models/Team';
 import IMatches, { ICreateMatchDTO, IUpdateMatchDTO } from '../../entities/IMatches';
-import IMatchesRepository from '../IMatches.repository';
+import IMatchesRepository from '../interfaces/IMatches.repository';
 
 export default class SequelizeMatchesRepository implements IMatchesRepository {
   private _model = MatchModel;

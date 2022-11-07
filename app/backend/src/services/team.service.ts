@@ -1,6 +1,6 @@
 import { NotFoundError } from '../errors';
 import ITeam from '../entities/ITeams';
-import ITeamsRepository from '../repositories/ITeams.repository';
+import ITeamsRepository from '../repositories/interfaces/ITeams.repository';
 
 export default class TeamService {
   private _teamsRepository: ITeamsRepository;

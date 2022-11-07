@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
 import TeamModel from '../../database/models/Team';
 import ITeam from '../../entities/ITeams';
-import ITeamsRepository from '../ITeams.repository';
+import ITeamsRepository from '../interfaces/ITeams.repository';
 
 export default class SequelizeTeamsRepository implements ITeamsRepository {
   private _model = TeamModel;

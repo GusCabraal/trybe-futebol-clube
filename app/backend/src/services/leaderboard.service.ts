@@ -1,5 +1,5 @@
 import ILeaderboard from '../entities/ILeaderboard';
-import ILeaderboardRepository from '../repositories/ILeaderboard.repository';
+import ILeaderboardRepository from '../repositories/interfaces/ILeaderboard.repository';
 
 export default class LeaderboardService {
   private _leaderboardRepository: ILeaderboardRepository;

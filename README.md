@@ -1,32 +1,47 @@
 # Projeto Trybe Futebol Clube
 
-Trybe Futebol Clube foi o 27° projeto realizado durante a formação da Trybe. Esse projeto pertence a seção 10 do Modulo de Back-end e foi desenvolvido em novembro de 2022.
-
 > Status do projeto: Concluído :heavy_check_mark:
+
+
+Trybe Futebol Clube foi o 27° projeto realizado durante a formação da Trybe. Esse projeto pertence a seção 10 do Modulo de Back-end e foi desenvolvido em novembro de 2022.
 
 ## Descrição do projeto
 
-
 Um site informativo sobre partidas e classificações de futebol. O front-end estava pronto sendo necessario desenvolver apenas o back-end.
+A aplicação foi criada em Typescript com a modelagem de dados com MySQL através do sequelize, JWT para autenticação dos usuários, mocha, chai e sinon na realização dos testes, sendo atingido 100% de cobertura de testes.
 
+![gravacao-tfc-funcionando](gravação-tfc-funcionando.gif)
 
 ## Como rodar
 
-- Clone o repositório com `git@github.com:GusCabraal/trybe-futebol-clube.git`
-- Instale as dependencias `npm install`
+- Clone o repositório 
+```
+git@github.com:GusCabraal/trybe-futebol-clube.git
+```
+- Instale as dependencias 
+```
+npm install
+```
 - Rode o script `npm run compose:up:dev`, esse script subirá o front-end na porta `3000`, o back-end na porta `3001` e o banco de dados na porta `3002`;
-- Acesse o front end no localmente no endereço `http://localhost:3000`
+- Acesse o front end no localmente no endereço 
+```
+http://localhost:3000
+```
 - Ou se preferir consumir apenas o back-end: Importe o arquivo `routes-project-trybe-futebol-clube.json` para dentro do Insominia
 - Consuma a API sem moderação.
 
 
 ## Testes
-Foram realizados testes de integração em todas as rotas da aplicação. Sendo atingido 100% de cobertura de testes em todas as rotas. Para rodar os testes entre no diretório de back-end `cd/app/backend`
+Foram realizados testes de integração em todas as rotas da aplicação. Para rodar os testes entre no diretório do back-end `cd app/backend`
 
 
 <details>
 <summary><strong> Rodando os testes </strong></summary><br />
-- Execute o comando `npm test`
+
+- Execute o comando:
+ ```
+ npm test
+ ```
 
 ![cobertura_de_testes](testes.png)
 
@@ -35,7 +50,10 @@ Foram realizados testes de integração em todas as rotas da aplicação. Sendo 
 <details>
 <summary><strong>Para rodar os testes de cobertura</strong></summary><br />
 
-- Execute a cobertura de testes `npm run test:coverage`
+- Execute a cobertura de testes:
+ ```
+ npm run test:coverage
+ ```
 
 ![cobertura_de_testes](cobertura-de-testes.png)
 </details>

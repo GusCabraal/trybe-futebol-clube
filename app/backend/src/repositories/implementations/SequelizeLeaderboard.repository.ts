@@ -3,8 +3,9 @@ import ILeaderboard from '../../entities/ILeaderboard';
 import awayTeamsLeaderBoard from './utils/awayTeamsLeaderboard';
 import homeTeamsLeaderBoard from './utils/homeTeamsLeaderboard';
 import leaderboardTotal from './utils/leaderboardTotal';
+import ILeaderboardRepository from '../interfaces/ILeaderboard.repository';
 
-export default class ILeaderboardRepository implements ILeaderboardRepository {
+export default class LeaderboardRepository implements ILeaderboardRepository {
   private _model = modelSequelize;
 
   public leaderboardHome = async (): Promise<ILeaderboard[]> => {

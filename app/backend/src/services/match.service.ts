@@ -1,7 +1,7 @@
 import { NotFoundError, UnprocessableError } from '../errors';
 import IMatch, { ICreateMatchDTO, IUpdateMatchDTO } from '../entities/IMatches';
-import IMatchesRepository from '../repositories/IMatches.repository';
-import ITeamsRepository from '../repositories/ITeams.repository';
+import IMatchesRepository from '../repositories/interfaces/IMatches.repository';
+import ITeamsRepository from '../repositories/interfaces/ITeams.repository';
 
 export default class MatchService {
   private _matchesRepository: IMatchesRepository;

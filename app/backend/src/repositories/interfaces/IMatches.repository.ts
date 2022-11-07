@@ -1,4 +1,4 @@
-import IMatches, { ICreateMatchDTO, IUpdateMatchDTO } from '../entities/IMatches';
+import IMatches, { ICreateMatchDTO, IUpdateMatchDTO } from '../../entities/IMatches';
 
 export default interface IMatchesRepository {
   findAll(): Promise<IMatches[] | null>;
