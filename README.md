@@ -8,7 +8,7 @@ Trybe Futebol Clube foi o 27° projeto realizado durante a formação da Trybe. 
 ## Descrição do projeto
 
 Um site informativo sobre partidas e classificações de futebol. O front-end estava pronto sendo necessario desenvolver apenas o back-end.
-A aplicação foi criada em Typescript com a modelagem de dados com MySQL através do sequelize, JWT para autenticação dos usuários, mocha, chai e sinon na realização dos testes, sendo atingido 100% de cobertura de testes.
+A aplicação foi criada em Typescript com a modelagem de dados com MySQL através do sequelize, JWT para autenticação dos usuários, mocha, chai e sinon na realização dos testes de integração, sendo atingido 100% de cobertura de testes.
 
 ![gravacao-tfc-funcionando](gravação-tfc-funcionando.gif)
 
