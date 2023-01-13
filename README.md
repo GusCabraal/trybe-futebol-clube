@@ -8,7 +8,14 @@ Trybe Futebol Clube foi o 27° projeto realizado durante a formação da Trybe. 
 ## Descrição do projeto
 
 Um site informativo sobre partidas e classificações de futebol. O front-end estava pronto sendo necessario desenvolver apenas o back-end.
-A aplicação foi criada em Typescript com a modelagem de dados com MySQL através do sequelize, JWT para autenticação dos usuários, mocha, chai e sinon na realização dos testes, sendo atingido 100% de cobertura de testes.
+
+Tecnologias utilizadas:
+
+- Typescript para construir a API utilizando Programação Orientada a Objeto;
+- Modelagem de dados com MySQL através do sequelize;
+- JWT para autenticação dos usuários;
+- Bcryptjs para criptografar as senhas dos bancos de dados
+- Mocha, Chai e Sinon na realização dos testes.
 
 ![gravacao-tfc-funcionando](gravação-tfc-funcionando.gif)
 
@@ -57,6 +64,36 @@ Foram realizados testes de integração em todas as rotas da aplicação. Para r
 
 ![cobertura_de_testes](cobertura-de-testes.png)
 </details>
+
+## Tabelas 
+
+- Usuarios
+
+| campo | tipo | regra |
+|-------|------|-----------|
+| id | number | primary key|
+| username | email | |
+| role | string | |
+| password | string | |
+
+
+- Times
+
+| campo | tipo | regra |
+|-------|------|-----------|
+| id | number | primary key|
+| teamName | email | |
+
+- Partidas
+
+| campo | tipo | regra |
+|-------|------|-----------|
+| id | number | primary key|
+| homeTeam | number | Chave estrangeira da tabela Times(id) |
+| homeTeamGoals | number |  |
+| awayTeam | number | Chave estrangeira da tabela Times(id) |
+| awayTeamGoals | number |  |
+
 
 ## Rotas
 
